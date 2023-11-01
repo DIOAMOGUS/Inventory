@@ -4,15 +4,16 @@
 
 #include "box.hpp"
 
-// #define DEBUG
+#define DEBUG
 
 Box::Box(int boxID, std::string_view stuff)
 		: m_boxID { boxID }
 		, m_stuff { stuff }
 {
-	std::cout << "Successfully constructed the box.\nBox ID: " << m_boxID << '\n';
+	std::cout << "Successfully constructed the box.\n";
 #ifdef DEBUG
-	std::cout << "box stuff: \n" << m_boxID << '\n' << m_stuff << '\n' << m_inUse << '\n';
+	std::cout << "Box ID: " << m_boxID << '\n'
+	<< "Box Stuff: " << m_stuff << '\n';
 #endif
 }
 
@@ -20,52 +21,49 @@ int Box::findBox(const std::vector<Box>& vboxes, const int& desiredboxID) const
 {
 	for (size_t i = 1; i < vboxes.size(); ++i) {
 		if (desiredboxID == vboxes[i].m_boxID) {
-			return vboxes[i].m_boxID;
+			return i;
 		}
 	}
-	std::cerr << "Error! No box found!\n";
 	return -1;
 }
 
-void Box::createBox(std::vector<Box>& vboxes, int& lastCreatedBoxID)
+void Box::createBox(std::vector<Box>& vboxes, const int& desiredBoxID)
 {
 	std::cout << "What will you store in your box?\n";
 	std::string stuff{};
 	std::getline(std::cin >> std::ws, stuff);
 
-	Box* b = new Box(lastCreatedBoxID, stuff);
+	Box* b = new Box(desiredBoxID, stuff);
 	vboxes.emplace_back(*b);
 	delete b;
-	++lastCreatedBoxID;
 }
 
-void Box::printBox(const std::vector<Box>& vboxes, const int& desiredBoxID) const
+void Box::printBox(const std::vector<Box>& vboxes, const int& indexOfBox) const
 {
-	std::cout << "This box contains: \n" << vboxes[desiredBoxID].m_stuff << '\n';
+	std::cout << "This box contains: \n" << vboxes[indexOfBox].m_stuff << '\n';
 }
 
-void Box::editBox(std::vector<Box>& vboxes, const int& desiredBoxID)
+void Box::editBox(std::vector<Box>& vboxes, const int& indexOfBox)
 {
 	std::cout << "EDIT IT\n";
 	std::string stuff{};
 	std::getline(std::cin >> std::ws, stuff);
-	vboxes[desiredBoxID].m_stuff = stuff;
+	vboxes[indexOfBox].m_stuff = stuff;
 	std::cout << "Successfully edited the box.\n";
 }
 
 void Box::listBoxes(const std::vector<Box>& vboxes) const
 {
 	for (size_t i = 1; i < vboxes.size(); ++i) {
-		std::cout << "Box " << i << ":\nThis box contains: \n" << vboxes[i].m_stuff << '\n';
+		std::cout << "Box " << vboxes[i].m_boxID << ":\nThis box contains: \n" << vboxes[i].m_stuff << '\n';
 	}
 #ifdef DEBUG
 	std::cout << "size of vector = " << vboxes.size() << '\n';
 #endif
 }
 
-void Box::deleteLastBox(std::vector<Box>& vboxes, int& lastCreatedBoxID)
+void Box::deleteBox(std::vector<Box>& vboxes, const int& indexOfBox)
 {
-	vboxes.pop_back();
-	--lastCreatedBoxID;
+	vboxes.erase(vboxes.begin() + indexOfBox);
 	std::cout << "Successfully destroyed the box.\n";
 }
