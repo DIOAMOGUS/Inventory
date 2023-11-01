@@ -21,19 +21,19 @@ public:
 	int findBox(const std::vector<Box>& vboxes, const int& desiredboxID) const;
 
 	// Creates a new Box
-	void createBox(std::vector<Box>& vboxes, int& lastCreatedBoxID);
+	void createBox(std::vector<Box>& vboxes, const int& desiredBoxID);
 
 	// Prints a box's contents
-	void printBox(const std::vector<Box>& vboxes, const int& desiredBoxID) const;
+	void printBox(const std::vector<Box>& vboxes, const int& indexOfBox) const;
 
 	// Edits a box's contents, not its ID
-	void editBox(std::vector<Box>& vboxes, const int& desiredBoxID);
+	void editBox(std::vector<Box>& vboxes, const int& indexOfBox);
 
 	// Lists all the boxes in ascending order
 	void listBoxes(const std::vector<Box>& vboxes) const;
 
 	// Deletes the last created box
-	void deleteLastBox(std::vector<Box>& vboxes, int& lastCreatedBoxID);
+	void deleteBox(std::vector<Box>& vboxes, const int& indexOfBox);
 
 private:
 	int m_boxID{};
