@@ -4,9 +4,9 @@
 
 #include "box.hpp"
 
-#define DEBUG
+// #define DEBUG
 
-Box::Box(int boxID, std::string_view stuff)
+Box::Box(short boxID, std::string_view stuff)
 		: m_boxID { boxID }
 		, m_stuff { stuff }
 {
@@ -17,7 +17,7 @@ Box::Box(int boxID, std::string_view stuff)
 #endif
 }
 
-int Box::findBox(const std::vector<Box>& vboxes, const int& desiredboxID) const
+int Box::findBox(const std::vector<Box>& vboxes, short desiredboxID) const
 {
 	for (size_t i = 1; i < vboxes.size(); ++i) {
 		if (desiredboxID == vboxes[i].m_boxID) {
@@ -27,7 +27,7 @@ int Box::findBox(const std::vector<Box>& vboxes, const int& desiredboxID) const
 	return -1;
 }
 
-void Box::createBox(std::vector<Box>& vboxes, const int& desiredBoxID)
+void Box::createBox(std::vector<Box>& vboxes, short desiredBoxID)
 {
 	std::cout << "What will you store in your box?\n";
 	std::string stuff{};
@@ -38,12 +38,12 @@ void Box::createBox(std::vector<Box>& vboxes, const int& desiredBoxID)
 	delete b;
 }
 
-void Box::printBox(const std::vector<Box>& vboxes, const int& indexOfBox) const
+void Box::printBox(const std::vector<Box>& vboxes, short indexOfBox) const
 {
 	std::cout << "This box contains: \n" << vboxes[indexOfBox].m_stuff << '\n';
 }
 
-void Box::editBox(std::vector<Box>& vboxes, const int& indexOfBox)
+void Box::editBox(std::vector<Box>& vboxes, short indexOfBox)
 {
 	std::cout << "EDIT IT\n";
 	std::string stuff{};
@@ -62,7 +62,7 @@ void Box::listBoxes(const std::vector<Box>& vboxes) const
 #endif
 }
 
-void Box::deleteBox(std::vector<Box>& vboxes, const int& indexOfBox)
+void Box::deleteBox(std::vector<Box>& vboxes, short indexOfBox)
 {
 	vboxes.erase(vboxes.begin() + indexOfBox);
 	std::cout << "Successfully destroyed the box.\n";
