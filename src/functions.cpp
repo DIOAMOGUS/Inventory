@@ -4,60 +4,60 @@
 #include "functions.hpp"
 #include "box.hpp"
 
-void gameStatus(std::vector<Box>& vboxes, Box& box){
+void gameStatus(std::vector<Box>& boxes, Box& box){
 	char userInput{};  // Self-explanatory, controls the input and user commands in the main menu
-	short desiredBoxID{}; // Variable that holds the user's desired box 
-	short indexOfBox{}; // Variable holding the index of the box in the vector, as the index and the ID are separate
+	uint32_t desiredBoxID{}; // Variable that holds the user's desired box 
+	uint32_t indexOfBox{}; // Variable holding the index of the box in the vector, as the index and the ID are separate
 
 	while (true) {
 		mainMenu(userInput);
 		switch (userInput){
 		case 'c':
 			desiredBoxID = inputID();
-			indexOfBox = box.findBox(vboxes, desiredBoxID);
+			indexOfBox = box.findBox(boxes, desiredBoxID);
 
 			// handle errors if box of the same id is already found
 			if (indexOfBox == -1) // -1 meaning it didn't find a box 
-				box.createBox(vboxes, desiredBoxID);
+				box.createBox(boxes, desiredBoxID);
 			else
 				std::cout << "That box is in use already.\n";
 			break;
 
 		case 'p':
 			desiredBoxID = inputID();
-			indexOfBox = box.findBox(vboxes, desiredBoxID);
+			indexOfBox = box.findBox(boxes, desiredBoxID);
 			
 			if (indexOfBox == -1){ // -1 meaning it didn't find a box
 				std::cerr << "Error! No box found!\n"; 
 				continue; // start a new iteration of the loop if a box is not found
 			}  
-			box.printBox(vboxes, indexOfBox);
+			box.printBox(boxes, indexOfBox);
 			break;
 
 		case 'e':
 			desiredBoxID = inputID();
-			indexOfBox = box.findBox(vboxes, desiredBoxID);
+			indexOfBox = box.findBox(boxes, desiredBoxID);
 
 			if (indexOfBox == -1){ // -1 meaning it didn't find a box 
 				std::cerr << "Error! No box found!\n"; 
 				continue; // start a new iteration of the loop if a box is not found
 			}
-			box.editBox(vboxes, indexOfBox);
+			box.editBox(boxes, indexOfBox);
 			break;
 
 		case 'l':
-			box.listBoxes(vboxes);
+			box.listBoxes(boxes);
 			break;
 
 		case 'd':
 			desiredBoxID = inputID();
-			indexOfBox = box.findBox(vboxes, desiredBoxID);
+			indexOfBox = box.findBox(boxes, desiredBoxID);
 
 			if (indexOfBox == -1){ // -1 meaning it failed
 				std::cerr << "Error! No box found!\n";
 				continue; // start a new iteration of the loop if a box is not found
 			} 
-			box.deleteBox(vboxes, indexOfBox);
+			box.deleteBox(boxes, indexOfBox);
 			break;
 
 		case 'q':
@@ -77,7 +77,7 @@ void gameStatus(std::vector<Box>& vboxes, Box& box){
 
 int inputID()
 {
-	short desiredBoxID{};
+	uint32_t desiredBoxID{};
 	while (true) {
 		std::cout << "Input an ID: (Minimum = 1)\n";
 		std::cin >> desiredBoxID;

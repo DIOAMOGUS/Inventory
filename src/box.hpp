@@ -6,7 +6,7 @@
 class Box {
 public:
 	// Box constructor
-	Box(short boxID, std::string_view stuff);
+	Box(uint32_t boxID, std::string_view stuff);
 
 	// Classes don't "require" a destructor, as a default one will get created by the compiler, 
 	// hence why i don't explicitly specify one here
@@ -18,24 +18,24 @@ public:
 
 	// Box member functions (also called methods)
 	// Finds the desired box
-	int findBox(const std::vector<Box>& vboxes, short desiredboxID) const;
+	int findBox(const std::vector<Box>& boxes, uint32_t desiredboxID) const;
 
 	// Creates a new Box
-	void createBox(std::vector<Box>& vboxes, short desiredBoxID);
+	void createBox(std::vector<Box>& boxes, uint32_t desiredBoxID);
 
 	// Prints a box's contents
-	void printBox(const std::vector<Box>& vboxes, short indexOfBox) const;
+	void printBox(const std::vector<Box>& boxes, uint32_t indexOfBox) const;
 
 	// Edits a box's contents, not its ID
-	void editBox(std::vector<Box>& vboxes, short indexOfBox);
+	void editBox(std::vector<Box>& boxes, uint32_t indexOfBox);
 
 	// Lists all the boxes in ascending order
-	void listBoxes(const std::vector<Box>& vboxes) const;
+	void listBoxes(const std::vector<Box>& boxes) const;
 
 	// Deletes the last created box
-	void deleteBox(std::vector<Box>& vboxes, short indexOfBox);
+	void deleteBox(std::vector<Box>& boxes, uint32_t indexOfBox);
 
 private:
-	short m_boxID{};
+	uint32_t m_boxID{};
 	std::string m_stuff{};
 };
