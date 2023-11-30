@@ -2,7 +2,7 @@
 #include "box.hpp"
 
 // Game loop
-void gameStatus(std::vector<Box>& vboxes, Box& box);
+void gameStatus(std::vector<Box>& boxes, Box& box);
 
 // User inputs the ID of the box they want to access/create
 int inputID();
