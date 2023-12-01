@@ -135,13 +135,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="box.hpp" />
-    <ClInclude Include="functions.hpp" />
+    <None Include=".clang-format" />
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
+    <None Include="LICENSE" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="box.cpp" />
-    <ClCompile Include="functions.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\box.cpp" />
+    <ClCompile Include="src\functions.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\box.hpp" />
+    <ClInclude Include="src\functions.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

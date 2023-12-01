@@ -2,10 +2,10 @@
 #include "box.hpp"
 
 // Game loop
-void gameStatus(std::vector<Box>& boxes, Box& box);
+void gameStatus();
 
 // User inputs the ID of the box they want to access/create
-int inputID();
+uint32_t inputID();
 
 // Prints the main menu
 void mainMenu(char& userInput);
@@ -15,3 +15,6 @@ void wipeScreen();
 
 // Cleans up allocated memory and exits the program safely
 void exit();
+
+// Cleans up the input stream in case of an error
+void extractionErrorHandling();

@@ -1,4 +1,4 @@
-// Inventory 1.2.2
+// Inventory 1.2.3
 
 /*
 possible idea - make it like pokemon boxes, with multiple things in 1 box (array of strings (?))
@@ -32,16 +32,7 @@ void operator delete(void* ptr, size_t size)
 
 int main()
 {
-	std::vector<Box> boxes{}; // Vector to store the objects of the box class 
-	Box box{ 0, "nothing" }; // Creating our first box object
-	boxes.emplace(boxes.begin(), box); // Dynamically pushing it to the vector
-	system("cls");
-
-	// Start of the program
-	std::cout << "Hello! Please create your first box!\n";
-	box.createBox(boxes, 1);
-
 	// Moved this to a function as it was too crowded, poor main
-	gameStatus(boxes, box);
+	gameStatus();
 	return 0;
 }

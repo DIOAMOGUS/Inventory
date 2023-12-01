@@ -1,92 +1,96 @@
 #include <iostream>
 #include <limits>
 #include <vector>
-#include "functions.hpp"
-#include "box.hpp"
 
-void gameStatus(std::vector<Box>& boxes, Box& box) {
+#include "box.hpp"
+#include "functions.hpp"
+
+
+void gameStatus() {
 	char userInput{};  // Self-explanatory, controls the input and user commands in the main menu
 	uint32_t desiredBoxID{}; // Variable that holds the user's desired box 
 	uint32_t indexOfBox{}; // Variable holding the index of the box in the vector, as the index and the ID are separate
 
+	std::vector<Box> boxes{}; // Vector to store the boxes
 	while (true) {
 		mainMenu(userInput);
 		switch (userInput) {
 		case 'c':
 			desiredBoxID = inputID();
-			indexOfBox = box.findBox(boxes, desiredBoxID);
+			indexOfBox = findBox(boxes, desiredBoxID);
 
 			// handle errors if box of the same id is already found
 			if (indexOfBox == -1) // -1 meaning it didn't find a box 
-				box.createBox(boxes, desiredBoxID);
+				createBox(boxes, desiredBoxID);
 			else
 				std::cout << "That box is in use already.\n";
 			break;
 
 		case 'p':
 			desiredBoxID = inputID();
-			indexOfBox = box.findBox(boxes, desiredBoxID);
+			indexOfBox = findBox(boxes, desiredBoxID);
 
 			if (indexOfBox == -1) { // -1 meaning it didn't find a box
 				std::cerr << "Error! No box found!\n";
 				continue; // start a new iteration of the loop if a box is not found
 			}
-			box.printBox(boxes, indexOfBox);
+			printBox(boxes, indexOfBox);
 			break;
 
 		case 'e':
 			desiredBoxID = inputID();
-			indexOfBox = box.findBox(boxes, desiredBoxID);
+			indexOfBox = findBox(boxes, desiredBoxID);
 
 			if (indexOfBox == -1) { // -1 meaning it didn't find a box 
 				std::cerr << "Error! No box found!\n";
 				continue; // start a new iteration of the loop if a box is not found
 			}
-			box.editBox(boxes, indexOfBox);
+			editBox(boxes, indexOfBox);
 			break;
 
 		case 'l':
-			box.listBoxes(boxes);
+			listBoxes(boxes);
 			break;
 
 		case 'd':
 			desiredBoxID = inputID();
-			indexOfBox = box.findBox(boxes, desiredBoxID);
+			indexOfBox = findBox(boxes, desiredBoxID);
 
 			if (indexOfBox == -1) { // -1 meaning it failed
 				std::cerr << "Error! No box found!\n";
 				continue; // start a new iteration of the loop if a box is not found
 			}
-			box.deleteBox(boxes, indexOfBox);
+			deleteBox(boxes, indexOfBox);
 			break;
 
-		case 'q':
-			exit();
+		case 'x':
+			deleteAllBoxes(boxes);
 			break;
 
 		case 'w':
 			wipeScreen();
 			break;
 
+		case 'q':
+			exit();
+			break;
+
 		default:
-			std::cerr << "Error! Invalid input. Please try again.\n";
+			extractionErrorHandling();
 			break;
 		}
 	}
 }
 
-int inputID()
+uint32_t inputID()
 {
 	uint32_t desiredBoxID{};
 	while (true) {
-		std::cout << "Input an ID: (Minimum = 1)\n";
+		std::cout << "Input an ID: (Minimum = 0)\n";
 		std::cin >> desiredBoxID;
 
-		if (!std::cin || desiredBoxID < 1) {
-			// let's handle the failure
-			std::cin.clear(); // put us back in 'normal' operation mode
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // and remove the bad input
-			std::cerr << "Error! That input was invalid. Please try again.\n";
+		if (!std::cin || desiredBoxID < 0) {
+			extractionErrorHandling();
 		}
 		else
 			break;
@@ -96,7 +100,7 @@ int inputID()
 
 void mainMenu(char& userInput)
 {
-	std::cout << "\nc: create a box\np: print a box\ne: edit a box\nl: list all boxes\nd: delete box\nw: wipe the screen\nq: quit\n";
+	std::cout << "\nc: create a box\np: print a box\ne: edit a box\nl: list all boxes\nd: delete a box\nx: delete all boxes\nw: wipe the screen\nq: quit\n";
 	std::cin >> userInput;
 }
 
@@ -109,4 +113,12 @@ void exit()
 {
 	std::cout << "Thanks for playing!\n -DIO";
 	std::exit(0);
+}
+
+void extractionErrorHandling()
+{
+	// let's handle the failure
+	std::cin.clear(); // put us back in 'normal' operation mode
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // and remove the bad input
+	std::cerr << "Error! That input was invalid. Please try again.\n";
 }

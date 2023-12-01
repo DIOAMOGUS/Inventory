@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "box.hpp"
+#include "functions.hpp"
 
 // #define DEBUG
 
@@ -18,17 +19,19 @@ Box::Box(uint32_t boxID, std::string_view stuff)
 #endif
 }
 
-int Box::findBox(const std::vector<Box>& boxes, const uint32_t desiredboxID) const
+Box::~Box() {}
+
+uint32_t findBox(std::vector<Box>& boxes, const uint32_t desiredboxID)
 {
-	for (size_t i = 1; i < boxes.size(); ++i) {
-		if (desiredboxID == boxes[i].m_boxID) {
+	for (uint32_t i = 0; i < boxes.size(); ++i) {
+		if (desiredboxID == boxes[i].Box::getID()) {
 			return i;
 		}
 	}
 	return -1;
 }
 
-void Box::createBox(std::vector<Box>& boxes, const uint32_t desiredBoxID)
+void createBox(std::vector<Box>& boxes, const uint32_t desiredBoxID)
 {
 	std::cout << "What will you store in your box?\n";
 	std::string stuff{};
@@ -38,32 +41,52 @@ void Box::createBox(std::vector<Box>& boxes, const uint32_t desiredBoxID)
 	boxes.emplace_back(*b);
 }
 
-void Box::printBox(const std::vector<Box>& boxes, const uint32_t indexOfBox) const
+void printBox(std::vector<Box>& boxes, const uint32_t indexOfBox)
 {
-	std::cout << "This box contains: \n" << boxes[indexOfBox].m_stuff << '\n';
+	std::cout << "This box contains: \n" << boxes[indexOfBox].Box::getStuff() << '\n';
 }
 
-void Box::editBox(std::vector<Box>& boxes, const uint32_t indexOfBox)
+void editBox(std::vector<Box>& boxes, const uint32_t indexOfBox)
 {
 	std::cout << "EDIT IT\n";
 	std::string stuff{};
 	std::getline(std::cin >> std::ws, stuff);
-	boxes[indexOfBox].m_stuff = stuff;
+	boxes[indexOfBox].Box::setStuff(stuff);
 	std::cout << "Successfully edited the box.\n";
 }
 
-void Box::listBoxes(const std::vector<Box>& boxes) const
+void listBoxes(std::vector<Box>& boxes)
 {
-	for (size_t i = 1; i < boxes.size(); ++i) {
-		std::cout << "Box " << boxes[i].m_boxID << ":\nThis box contains: \n" << boxes[i].m_stuff << '\n';
+	for (uint32_t i = 0; i < boxes.size(); ++i) {
+		std::cout << "Box " << boxes[i].Box::getID() << ":\nThis box contains: \n" << boxes[i].Box::getStuff() << '\n';
 	}
 #ifdef DEBUG
 	std::cout << "size of vector = " << boxes.size() << '\n';
 #endif
 }
 
-void Box::deleteBox(std::vector<Box>& boxes, const uint32_t indexOfBox)
+void deleteBox(std::vector<Box>& boxes, const uint32_t indexOfBox)
 {
 	boxes.erase(boxes.begin() + indexOfBox);
 	std::cout << "Successfully destroyed the box.\n";
+}
+
+void deleteAllBoxes(std::vector<Box>& boxes)
+{
+	while (true) {
+		std::cout << "Are you sure you want to clear everything? y/n\n";
+		char selection{};
+		std::cin >> selection;
+		switch (selection) {
+			case 'y':
+				boxes.clear();
+				std::cout << "Deleted all boxes.\n";
+
+			case 'n':
+				return;
+
+			default:
+				extractionErrorHandling();
+		}
+	}
 }
