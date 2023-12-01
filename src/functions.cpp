@@ -4,14 +4,14 @@
 #include "functions.hpp"
 #include "box.hpp"
 
-void gameStatus(std::vector<Box>& boxes, Box& box){
+void gameStatus(std::vector<Box>& boxes, Box& box) {
 	char userInput{};  // Self-explanatory, controls the input and user commands in the main menu
 	uint32_t desiredBoxID{}; // Variable that holds the user's desired box 
 	uint32_t indexOfBox{}; // Variable holding the index of the box in the vector, as the index and the ID are separate
 
 	while (true) {
 		mainMenu(userInput);
-		switch (userInput){
+		switch (userInput) {
 		case 'c':
 			desiredBoxID = inputID();
 			indexOfBox = box.findBox(boxes, desiredBoxID);
@@ -26,11 +26,11 @@ void gameStatus(std::vector<Box>& boxes, Box& box){
 		case 'p':
 			desiredBoxID = inputID();
 			indexOfBox = box.findBox(boxes, desiredBoxID);
-			
-			if (indexOfBox == -1){ // -1 meaning it didn't find a box
-				std::cerr << "Error! No box found!\n"; 
+
+			if (indexOfBox == -1) { // -1 meaning it didn't find a box
+				std::cerr << "Error! No box found!\n";
 				continue; // start a new iteration of the loop if a box is not found
-			}  
+			}
 			box.printBox(boxes, indexOfBox);
 			break;
 
@@ -38,8 +38,8 @@ void gameStatus(std::vector<Box>& boxes, Box& box){
 			desiredBoxID = inputID();
 			indexOfBox = box.findBox(boxes, desiredBoxID);
 
-			if (indexOfBox == -1){ // -1 meaning it didn't find a box 
-				std::cerr << "Error! No box found!\n"; 
+			if (indexOfBox == -1) { // -1 meaning it didn't find a box 
+				std::cerr << "Error! No box found!\n";
 				continue; // start a new iteration of the loop if a box is not found
 			}
 			box.editBox(boxes, indexOfBox);
@@ -53,10 +53,10 @@ void gameStatus(std::vector<Box>& boxes, Box& box){
 			desiredBoxID = inputID();
 			indexOfBox = box.findBox(boxes, desiredBoxID);
 
-			if (indexOfBox == -1){ // -1 meaning it failed
+			if (indexOfBox == -1) { // -1 meaning it failed
 				std::cerr << "Error! No box found!\n";
 				continue; // start a new iteration of the loop if a box is not found
-			} 
+			}
 			box.deleteBox(boxes, indexOfBox);
 			break;
 
@@ -82,12 +82,13 @@ int inputID()
 		std::cout << "Input an ID: (Minimum = 1)\n";
 		std::cin >> desiredBoxID;
 
-		if (desiredBoxID < 1 || !std::cin) {
+		if (!std::cin || desiredBoxID < 1) {
 			// let's handle the failure
 			std::cin.clear(); // put us back in 'normal' operation mode
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // and remove the bad input
 			std::cerr << "Error! That input was invalid. Please try again.\n";
-		} else
+		}
+		else
 			break;
 	}
 	return desiredBoxID;

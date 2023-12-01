@@ -18,22 +18,22 @@ public:
 
 	// Box member functions (also called methods)
 	// Finds the desired box
-	int findBox(const std::vector<Box>& boxes, uint32_t desiredboxID) const;
+	int findBox(const std::vector<Box>& boxes, const uint32_t desiredboxID) const;
 
 	// Creates a new Box
-	void createBox(std::vector<Box>& boxes, uint32_t desiredBoxID);
+	void createBox(std::vector<Box>& boxes, const uint32_t desiredBoxID);
 
 	// Prints a box's contents
 	void printBox(const std::vector<Box>& boxes, uint32_t indexOfBox) const;
 
 	// Edits a box's contents, not its ID
-	void editBox(std::vector<Box>& boxes, uint32_t indexOfBox);
+	void editBox(std::vector<Box>& boxes, const uint32_t indexOfBox);
 
 	// Lists all the boxes in ascending order
 	void listBoxes(const std::vector<Box>& boxes) const;
 
 	// Deletes the last created box
-	void deleteBox(std::vector<Box>& boxes, uint32_t indexOfBox);
+	void deleteBox(std::vector<Box>& boxes, const uint32_t indexOfBox);
 
 private:
 	uint32_t m_boxID{};
