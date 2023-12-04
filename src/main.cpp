@@ -7,13 +7,12 @@ use 3rd party library "fmt" to print stuff
 use a std::unordered_map (hash table) to look up the elements in the functions instead of looping over every variable looking for an id, this is MUCH faster
 especially when you have tons and tons of boxes, algorithm will get beri beri slow!!
 */
+
 #include <iostream>
-#include <memory>
 #include <vector>
 #include "box.hpp"
 #include "functions.hpp"
-
-#define DEBUG
+#include "macros.hpp"
 
 #ifdef DEBUG
 // Simple operator overloading to show heap allocations and deallocations
@@ -32,7 +31,6 @@ void operator delete(void* ptr, size_t size)
 
 int main()
 {
-	// Moved this to a function as it was too crowded, poor main
 	gameStatus();
 	return 0;
 }

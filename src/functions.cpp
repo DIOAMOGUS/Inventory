@@ -4,7 +4,7 @@
 
 #include "box.hpp"
 #include "functions.hpp"
-
+#include "macros.hpp"
 
 void gameStatus() {
 	char userInput{};  // Self-explanatory, controls the input and user commands in the main menu
@@ -20,7 +20,7 @@ void gameStatus() {
 			indexOfBox = findBox(boxes, desiredBoxID);
 
 			// handle errors if box of the same id is already found
-			if (indexOfBox == -1) // -1 meaning it didn't find a box 
+			if (indexOfBox == -1) // -1 meaning it didn't find a box
 				createBox(boxes, desiredBoxID);
 			else
 				std::cout << "That box is in use already.\n";
@@ -82,9 +82,9 @@ void gameStatus() {
 	}
 }
 
-uint32_t inputID()
+uint64_t inputID()
 {
-	uint32_t desiredBoxID{};
+	uint64_t desiredBoxID{};
 	while (true) {
 		std::cout << "Input an ID: (Minimum = 0)\n";
 		std::cin >> desiredBoxID;
