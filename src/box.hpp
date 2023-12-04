@@ -3,22 +3,28 @@
 #include <string>
 #include <string_view>
 
+#include "macros.hpp"
+
 class Box {
 public:
 	// Box constructor
-	Box(uint32_t boxID, std::string_view stuff);
+	Box(uint64_t boxID, std::string_view stuff);
 
+	#ifdef DEBUG
+	// Box copy constructor
+	Box(const Box& box);
+	#endif
 	~Box();
 
 	// Getters
-	uint32_t getID() { return m_boxID; }
-	const std::string& getStuff() { return m_stuff; }
+	inline uint64_t getID() const { return m_boxID; } const
+	inline const std::string& getStuff() const { return m_stuff; } const
 
 	// Setters
-	void setStuff(std::string_view stuff) { m_stuff = stuff; }
+	inline void setStuff(std::string_view stuff) { m_stuff = stuff; }
 
 private:
-	uint32_t m_boxID{};
+	uint64_t m_boxID{};
 	std::string m_stuff{};
 };
 

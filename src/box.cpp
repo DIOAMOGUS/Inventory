@@ -5,10 +5,9 @@
 
 #include "box.hpp"
 #include "functions.hpp"
+#include "macros.hpp"
 
-// #define DEBUG
-
-Box::Box(uint32_t boxID, std::string_view stuff)
+Box::Box(uint64_t boxID, std::string_view stuff)
 	: m_boxID{ boxID }
 	, m_stuff{ stuff }
 {
@@ -18,6 +17,15 @@ Box::Box(uint32_t boxID, std::string_view stuff)
 		<< "Box Stuff: " << m_stuff << '\n';
 #endif
 }
+
+#ifdef DEBUG
+Box::Box(const Box& box)
+	: m_boxID{ box.m_boxID }
+	, m_stuff{ box.m_stuff }
+{
+	std::cout << "Copy constructor called\n";
+}
+#endif
 
 Box::~Box() {}
 
@@ -81,6 +89,7 @@ void deleteAllBoxes(std::vector<Box>& boxes)
 			case 'y':
 				boxes.clear();
 				std::cout << "Deleted all boxes.\n";
+				return;
 
 			case 'n':
 				return;

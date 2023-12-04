@@ -5,7 +5,7 @@
 void gameStatus();
 
 // User inputs the ID of the box they want to access/create
-uint32_t inputID();
+uint64_t inputID();
 
 // Prints the main menu
 void mainMenu(char& userInput);
