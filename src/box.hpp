@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <string_view>
-
 #include "macros.hpp"
 
 class Box {
@@ -30,22 +29,22 @@ private:
 
 // Box functions 
 // Finds the desired box
-uint32_t findBox(std::vector<Box>& boxes, const uint32_t desiredboxID);
+uint64_t findBox(std::vector<Box>& boxes, const uint64_t desiredboxID);
 
 // Creates a new Box
-void createBox(std::vector<Box>& boxes, const uint32_t desiredBoxID);
+void createBox(std::vector<Box>& boxes, const uint64_t desiredBoxID);
 
 // Prints a box's contents
-void printBox(std::vector<Box>& boxes, const uint32_t indexOfBox);
+void printBox(std::vector<Box>& boxes, const uint64_t indexOfBox);
 
 // Edits a box's contents, not its ID
-void editBox(std::vector<Box>& boxes, const uint32_t indexOfBox);
+void editBox(std::vector<Box>& boxes, const uint64_t indexOfBox);
 
 // Lists all the boxes in ascending order
 void listBoxes(std::vector<Box>& boxes);
 
 // Deletes the last created box
-void deleteBox(std::vector<Box>& boxes, const uint32_t indexOfBox);
+void deleteBox(std::vector<Box>& boxes, const uint64_t indexOfBox);
 
 // Deletes all boxes, resetting the vector
 void deleteAllBoxes(std::vector<Box>& boxes);

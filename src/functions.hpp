@@ -11,10 +11,10 @@ uint64_t inputID();
 void mainMenu(char& userInput);
 
 // Wipes the screen using "cls"
-void wipeScreen();
+inline void wipeScreen();
 
 // Cleans up allocated memory and exits the program safely
 void exit();
 
 // Cleans up the input stream in case of an error
-void extractionErrorHandling();
+inline void extractionErrorHandling();

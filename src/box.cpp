@@ -29,9 +29,9 @@ Box::Box(const Box& box)
 
 Box::~Box() {}
 
-uint32_t findBox(std::vector<Box>& boxes, const uint32_t desiredboxID)
+uint64_t findBox(std::vector<Box>& boxes, const uint64_t desiredboxID)
 {
-	for (uint32_t i = 0; i < boxes.size(); ++i) {
+	for (uint64_t i = 0; i < boxes.size(); ++i) {
 		if (desiredboxID == boxes[i].Box::getID()) {
 			return i;
 		}
@@ -39,7 +39,7 @@ uint32_t findBox(std::vector<Box>& boxes, const uint32_t desiredboxID)
 	return -1;
 }
 
-void createBox(std::vector<Box>& boxes, const uint32_t desiredBoxID)
+void createBox(std::vector<Box>& boxes, const uint64_t desiredBoxID)
 {
 	std::cout << "What will you store in your box?\n";
 	std::string stuff{};
@@ -49,12 +49,12 @@ void createBox(std::vector<Box>& boxes, const uint32_t desiredBoxID)
 	boxes.emplace_back(*b);
 }
 
-void printBox(std::vector<Box>& boxes, const uint32_t indexOfBox)
+void printBox(std::vector<Box>& boxes, const uint64_t indexOfBox)
 {
 	std::cout << "This box contains: \n" << boxes[indexOfBox].Box::getStuff() << '\n';
 }
 
-void editBox(std::vector<Box>& boxes, const uint32_t indexOfBox)
+void editBox(std::vector<Box>& boxes, const uint64_t indexOfBox)
 {
 	std::cout << "EDIT IT\n";
 	std::string stuff{};
@@ -65,7 +65,7 @@ void editBox(std::vector<Box>& boxes, const uint32_t indexOfBox)
 
 void listBoxes(std::vector<Box>& boxes)
 {
-	for (uint32_t i = 0; i < boxes.size(); ++i) {
+	for (uint64_t i = 0; i < boxes.size(); ++i) {
 		std::cout << "Box " << boxes[i].Box::getID() << ":\nThis box contains: \n" << boxes[i].Box::getStuff() << '\n';
 	}
 #ifdef DEBUG
@@ -73,7 +73,7 @@ void listBoxes(std::vector<Box>& boxes)
 #endif
 }
 
-void deleteBox(std::vector<Box>& boxes, const uint32_t indexOfBox)
+void deleteBox(std::vector<Box>& boxes, const uint64_t indexOfBox)
 {
 	boxes.erase(boxes.begin() + indexOfBox);
 	std::cout << "Successfully destroyed the box.\n";

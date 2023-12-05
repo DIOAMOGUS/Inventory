@@ -1,4 +1,4 @@
-// Inventory 1.2.3
+// Inventory 1.3.2
 
 /*
 possible idea - make it like pokemon boxes, with multiple things in 1 box (array of strings (?))

@@ -8,8 +8,8 @@
 
 void gameStatus() {
 	char userInput{};  // Self-explanatory, controls the input and user commands in the main menu
-	uint32_t desiredBoxID{}; // Variable that holds the user's desired box 
-	uint32_t indexOfBox{}; // Variable holding the index of the box in the vector, as the index and the ID are separate
+	uint64_t desiredBoxID{}; // Variable that holds the user's desired box 
+	uint64_t indexOfBox{}; // Variable holding the index of the box in the vector, as the index and the ID are separate
 
 	std::vector<Box> boxes{}; // Vector to store the boxes
 	while (true) {
@@ -23,7 +23,7 @@ void gameStatus() {
 			if (indexOfBox == -1) // -1 meaning it didn't find a box
 				createBox(boxes, desiredBoxID);
 			else
-				std::cout << "That box is in use already.\n";
+				std::cerr << "That box is in use already.\n";
 			break;
 
 		case 'p':
@@ -104,7 +104,7 @@ void mainMenu(char& userInput)
 	std::cin >> userInput;
 }
 
-void wipeScreen()
+inline void wipeScreen()
 {
 	system("cls"); // Don't do this though because this shit isn't very portable lmfao
 }
@@ -115,7 +115,7 @@ void exit()
 	std::exit(0);
 }
 
-void extractionErrorHandling()
+inline void extractionErrorHandling()
 {
 	// let's handle the failure
 	std::cin.clear(); // put us back in 'normal' operation mode
