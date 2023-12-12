@@ -1,4 +1,4 @@
-// Inventory 1.3.2
+// Inventory 1.4
 
 /*
 possible idea - make it like pokemon boxes, with multiple things in 1 box (array of strings (?))
@@ -9,7 +9,6 @@ especially when you have tons and tons of boxes, algorithm will get beri beri sl
 */
 
 #include <iostream>
-#include <vector>
 #include "box.hpp"
 #include "functions.hpp"
 #include "macros.hpp"

@@ -1,11 +1,12 @@
 #pragma once
+#include <string_view>
 #include "box.hpp"
 
 // Game loop
 void gameStatus();
 
-// User inputs the ID of the box they want to access/create
-uint64_t inputID();
+// User inputs the name of the box they want to access/create
+const std::string& inputName();
 
 // Prints the main menu
 void mainMenu(char& userInput);
