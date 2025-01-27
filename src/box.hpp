@@ -2,13 +2,14 @@
 #include <iostream>
 #include <string>
 #include <string_view>
-
+#include <unordered_map>
 #include "macros.hpp"
 
 class Box {
 public:
 	// Box constructor
-	Box(uint64_t boxID, std::string_view stuff);
+	Box(std::string_view boxName = "defaultName", std::string_view boxData = "defaultData");
+	// figure out why this shit needs default arguments?!?!!?
 
 	#ifdef DEBUG
 	// Box copy constructor
@@ -17,35 +18,33 @@ public:
 	~Box();
 
 	// Getters
-	inline uint64_t getID() const { return m_boxID; } const
-	inline const std::string& getStuff() const { return m_stuff; } const
+	inline std::string_view getName() const { return m_boxName; } const
+	inline std::string_view getData() const { return m_boxData; } const
 
 	// Setters
-	inline void setStuff(std::string_view stuff) { m_stuff = stuff; }
+	inline const void setName(std::string_view name) { m_boxName = name; }
+	inline const void setData(std::string_view data) { m_boxData = data; }
 
 private:
-	uint64_t m_boxID{};
-	std::string m_stuff{};
+	std::string m_boxName{};
+	std::string m_boxData{};
 };
 
 // Box functions 
-// Finds the desired box
-uint32_t findBox(std::vector<Box>& boxes, const uint32_t desiredboxID);
-
 // Creates a new Box
-void createBox(std::vector<Box>& boxes, const uint32_t desiredBoxID);
+void createBox(std::unordered_map<std::string, Box>& boxes, const std::string& boxName);
 
 // Prints a box's contents
-void printBox(std::vector<Box>& boxes, const uint32_t indexOfBox);
+void printBox(std::unordered_map<std::string, Box>& boxes, const std::string& boxName);
 
 // Edits a box's contents, not its ID
-void editBox(std::vector<Box>& boxes, const uint32_t indexOfBox);
+void editBox(std::unordered_map<std::string, Box>& boxes, const std::string& boxName);
 
 // Lists all the boxes in ascending order
-void listBoxes(std::vector<Box>& boxes);
+void listBoxes(std::unordered_map<std::string, Box>& boxes);
 
 // Deletes the last created box
-void deleteBox(std::vector<Box>& boxes, const uint32_t indexOfBox);
+void deleteBox(std::unordered_map<std::string, Box>& boxes, const std::string& boxName);
 
-// Deletes all boxes, resetting the vector
-void deleteAllBoxes(std::vector<Box>& boxes);
+// Deletes all boxes
+void deleteAllBoxes(std::unordered_map<std::string, Box>& boxes);
