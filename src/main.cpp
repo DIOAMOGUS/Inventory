@@ -4,8 +4,6 @@
 possible idea - make it like pokemon boxes, with multiple things in 1 box (array of strings (?))
 other idea - write shit to a save file thing (fstream)
 use 3rd party library "fmt" to print stuff
-use a std::unordered_map (hash table) to look up the elements in the functions instead of looping over every variable looking for an id, this is MUCH faster
-especially when you have tons and tons of boxes, algorithm will get beri beri slow!!
 */
 
 #include <iostream>
@@ -30,6 +28,75 @@ void operator delete(void* ptr, size_t size)
 
 int main()
 {
-	gameStatus();
-	return 0;
+	char userInput{}; // Self-explanatory, controls the input and user commands in the main menu
+	std::string boxName{}; // Variable that holds the name of the user's desired box
+	std::string boxData{}; // Variable that holds the data of the user's desired box
+	std::unordered_map<std::string, Box> boxes{}; // unordered_map (hash table) to store the boxes
+
+	while (true) {
+		userInput = mainMenu(userInput);
+		switch (userInput) {
+		case 'c':
+			boxName = inputName();
+
+			if (boxes.find(boxName) != boxes.end()) // if it found a box
+				std::cerr << "That box is in use already.\n";
+			else
+				createBox(boxes, boxName);
+			break;
+
+		case 'p':
+			boxName = inputName();
+
+			if (boxes.find(boxName) != boxes.end()) // if it found a box
+				printBox(boxes, boxName);
+			else {
+				std::cerr << "Error! No box found!\n";
+				continue; // start a new iteration of the loop if a box is not found
+			}
+			break;
+
+		case 'e':
+			boxName = inputName();
+
+			if (boxes.find(boxName) != boxes.end()) {
+				editBox(boxes, boxName); // if it found a box
+			} else {
+				std::cerr << "Error! No box found!\n";
+				continue; // start a new iteration of the loop if a box is not found
+			}
+			break;
+
+		case 'l':
+			listBoxes(boxes);
+			break;
+
+		case 'd':
+			boxName = inputName();
+
+			if (boxes.find(boxName) != boxes.end()) // if it found a box
+				deleteBox(boxes, boxName);
+			else {
+				std::cerr << "Error! No box found!\n";
+				continue; // start a new iteration of the loop if a box is not found
+			}
+			break;
+
+		case 'x':
+			deleteAllBoxes(boxes);
+			break;
+
+		case 'w':
+			wipeScreen();
+			break;
+
+		case 'q':
+			exit();
+			break;
+
+		default:
+			extractionErrorHandling();
+			break;
+		}
+	}
 }

@@ -5,110 +5,41 @@
 #include "functions.hpp"
 #include "macros.hpp"
 
-void gameStatus() {
-	char userInput{};  // Self-explanatory, controls the input and user commands in the main menu
-	std::string boxName{}; // Variable that holds the user's desired box 
-	std::unordered_map<std::string, Box> boxes{};// unordered_map (hash table) to store the boxes
-	
-	while (true) {
-		mainMenu(userInput);
-		switch (userInput) {
-		case 'c':
-			boxName = inputName();
-
-			if (boxes.find(boxName) != boxes.end()) // if it found a box
-				std::cerr << "That box is in use already.\n"; 
-			else
-				createBox(boxes, boxName);
-			break;
-
-		case 'p':
-			boxName = inputName();
-
-			if (boxes.find(boxName) != boxes.end()) { // if it found a box
-				printBox(boxes, boxName);
-			} 
-			else {
-				std::cerr << "Error! No box found!\n";
-				continue; // start a new iteration of the loop if a box is not found
-			}
-			break;
-
-		case 'e':
-			boxName = inputName();
-
-			if (boxes.find(boxName) != boxes.end()) {
-				editBox(boxes, boxName); // if it found a box
-			} 
-			else {
-				std::cerr << "Error! No box found!\n";
-				continue; // start a new iteration of the loop if a box is not found
-			}
-			break;
-
-		case 'l':
-			listBoxes(boxes);
-			break;
-
-		case 'd':
-			boxName = inputName();
-
-			if (boxes.find(boxName) != boxes.end()) { // if it found a box
-				deleteBox(boxes, boxName);
-			} 
-			else {
-			std::cerr << "Error! No box found!\n";
-			continue; // start a new iteration of the loop if a box is not found 
-			}
-
-			break;
-
-		case 'x':
-			deleteAllBoxes(boxes);
-			break;
-
-		case 'w':
-			wipeScreen();
-			break;
-
-		case 'q':
-			exit();
-			break;
-
-		default:
-			extractionErrorHandling();
-			break;
-		}
-	}
-}
-
-const std::string& inputName()
+const std::string inputName()
 {
+	std::cout << "Input a Name:\n";
 	std::string desiredBoxName{};
-	std::cout << "Input a name:\n";
 	std::getline(std::cin >> std::ws, desiredBoxName);
 	
 	return desiredBoxName;
 }
 
-void mainMenu(char& userInput)
+char mainMenu(char userInput)
 {
 	std::cout << "\nc: create a box\np: print a box\ne: edit a box\nl: list all boxes\nd: delete a box\nx: delete all boxes\nw: wipe the screen\nq: quit\n";
 	std::cin >> userInput;
+	return userInput;
 }
 
-inline void wipeScreen()
+void wipeScreen() // no idea if there's a function i can call on each platform im just doing it like this ig
 {
-	system("cls"); // Don't do this though because this shit isn't very portable lmfao
+#ifdef _WIN32
+	system("cls");
+#elif __linux__
+	system("clear");
+#elif __APPLE__
+	system("clear");
+#endif
 }
 
 void exit()
-{
-	std::cout << "Thanks for playing!\n -DIO";
+{	
+	// unordered_map is freed here
+	std::cout << "\nThanks for playing!\n -DIO";
 	std::exit(0);
 }
 
-inline void extractionErrorHandling()
+void extractionErrorHandling()
 {
 	// let's handle the failure
 	std::cin.clear(); // put us back in 'normal' operation mode

@@ -79,7 +79,7 @@ void deleteAllBoxes(std::unordered_map<std::string, Box>& boxes)
 			case 'y':
 				boxes.clear();
 				std::cout << "Deleted all boxes.\n";
-				return;
+				[[fallthrough]];
 
 			case 'n':
 				return;

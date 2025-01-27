@@ -9,7 +9,7 @@ class Box {
 public:
 	// Box constructor
 	Box(std::string_view boxName = "defaultName", std::string_view boxData = "defaultData");
-	// figure out why this shit has default arguments?!?!!?
+	// figure out why this shit needs default arguments?!?!!?
 
 	#ifdef DEBUG
 	// Box copy constructor
@@ -46,5 +46,5 @@ void listBoxes(std::unordered_map<std::string, Box>& boxes);
 // Deletes the last created box
 void deleteBox(std::unordered_map<std::string, Box>& boxes, const std::string& boxName);
 
-// Deletes all boxes, resetting the vector
+// Deletes all boxes
 void deleteAllBoxes(std::unordered_map<std::string, Box>& boxes);
